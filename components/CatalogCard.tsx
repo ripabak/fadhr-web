@@ -1,4 +1,6 @@
+"use client"
 import Link from "next/link";
+import { useBottomImageColor } from "@/hooks/useBottomColorImage";
 
 export default function CatalogCard({
   title,
@@ -9,16 +11,33 @@ export default function CatalogCard({
   coverUrl,
   badgeText,
   actionText,
-  color = "bg-white text-neutral-900",
-  darkGradient = false
-}: any) {
+  bgColorHex = "#fff"
+}: {
+  title: string;
+  year: number;
+  description: string;
+  link?: string;
+  coverType?: 'image' | 'video';
+  coverUrl?: string;
+  badgeText?: string;
+  actionText?: string;
+  bgColorHex?: string;
+}) {
+
+  const textColor = useBottomImageColor({
+    src: coverUrl,
+    fallbackColor: bgColorHex
+  });
+
+
   return (
     <Link
       href={link}
       className={`block relative rounded-3xl overflow-hidden group min-h-[400px] h-full flex flex-col
       transition-all duration-500 ease-out
       hover:-translate-y-1
-      ${color}`}
+      border border-current`}
+      style={{ backgroundColor: bgColorHex, color: textColor }}
     >
       {/* Background Media */}
       {coverUrl && coverType === 'image' && (
@@ -42,14 +61,6 @@ export default function CatalogCard({
         />
       )}
 
-      {/* ✨ Premium Smooth Dark Gradient */}
-      {darkGradient && (
-        <div className="absolute inset-0 z-10 
-          bg-gradient-to-t from-[#09090b]/90 via-[#09090b]/40 to-transparent 
-          opacity-80 group-hover:opacity-100 
-          transition-opacity duration-700 pointer-events-none" />
-      )}
-
       {/* Subtle global overlay untuk readability */}
       {coverUrl && (
         <div className="absolute inset-0 z-10 
@@ -58,7 +69,8 @@ export default function CatalogCard({
         />
       )}
 
-      <div className="relative z-20 flex flex-col h-full p-6 md:p-8">
+      <div className="relative z-20 flex flex-col h-full p-6 md:p-8"
+        style={{ color: textColor }}>
         {/* Header */}
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-4">

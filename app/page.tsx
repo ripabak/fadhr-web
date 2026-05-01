@@ -45,7 +45,7 @@ export default async function Home() {
       {/* Right Content - Grid */}
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {catalogs.map((catalog: any) => {
-          const { title, year, description, link, badgeText, actionText, color, darkGradient, cover } = catalog;
+          const { title, year, description, link, badgeText, actionText, bgColorHex, cover } = catalog;
 
           let coverUrl = '';
           let coverType: 'image' | 'video' = 'image';
@@ -71,8 +71,7 @@ export default async function Home() {
               badgeText={badgeText}
               coverType={coverType}
               coverUrl={coverUrl}
-              color={color}
-              darkGradient={darkGradient}
+              bgColorHex={bgColorHex}
             />
           );
         })}
