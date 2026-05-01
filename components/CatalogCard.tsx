@@ -91,7 +91,7 @@ export default function CatalogCard({
             </div>
 
             <div>
-              <h3 className="font-semibold text-lg tracking-tight leading-tight">
+              <h3 className="font-semibold text-md tracking-tight leading-tight">
                 {title}
               </h3>
               {year && (
