@@ -35,7 +35,7 @@ function BlockRenderer({ blocks }: { blocks: any[] }) {
           return (
             <div
               key={index}
-              className="prose prose-invert max-w-none prose-lg prose-headings:font-bold prose-a:text-accent hover:prose-a:text-white prose-a:transition-colors prose-blockquote:border-accent prose-blockquote:bg-white/[0.02] prose-blockquote:px-6 prose-blockquote:py-2 prose-blockquote:rounded-r-lg"
+              className="font-[Charter] prose prose-invert max-w-none prose-lg prose-headings:font-bold prose-a:text-accent hover:prose-a:text-white prose-a:transition-colors prose-blockquote:border-accent prose-blockquote:bg-white/[0.02] prose-blockquote:px-6 prose-blockquote:py-2 prose-blockquote:rounded-r-lg"
             >
               <Markdown remarkPlugins={[remarkGfm]}>{block.body}</Markdown>
             </div>
