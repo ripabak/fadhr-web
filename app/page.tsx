@@ -1,7 +1,23 @@
 import CatalogCard from "@/components/CatalogCard";
 import Link from "next/link";
+import { fetchAPI } from "@/lib/strapi";
 
-export default function Home() {
+async function getCatalogs() {
+  try {
+    const res = await fetchAPI('/catalogs', {
+      populate: '*',
+      sort: ['createdAt:asc'],
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching catalogs", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const catalogs = await getCatalogs();
+
   return (
     <div className="flex flex-col lg:flex-row w-full max-w-[1800px] mx-auto p-6 lg:p-8 gap-12 lg:gap-20">
       {/* Left Sidebar */}
@@ -28,51 +44,39 @@ export default function Home() {
 
       {/* Right Content - Grid */}
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-        <CatalogCard
-          title="Distill"
-          year="2025"
-          description="Great ideas start in quiet places, welcome to your private think space with your own team of agents."
-          actionText="Create yours today"
-          coverType="image"
-          coverUrl="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
-          color="bg-sky-100 text-sky-900"
-        />
-        <CatalogCard
-          title="Research"
-          year="2024"
-          description="To ignite curiosity, inspire innovation, and expand horizons through understanding and deeper insights into research."
-          badgeText="Loved by researchers"
-          coverType="image"
-          coverUrl="https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=2670&auto=format&fit=crop"
-          color="bg-[#EBE5D9] text-[#4A4433]"
-        />
-        <CatalogCard
-          title="Pile"
-          year="2023"
-          description="Kindle self-discovery, nurture growth, and broaden understanding through reflection and insight into one's inner landscape."
-          actionText="100K+ Users"
-          coverType="image"
-          coverUrl="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2670&auto=format&fit=crop"
-          color="bg-blue-500 text-white"
-        />
-        <CatalogCard
-          title="Mudbook"
-          description="From your first wobbly cylinder to gallery-worthy pieces. Capture every step of your pottery process."
-          badgeText="Made for potters"
-          coverType="image"
-          coverUrl="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=2670&auto=format&fit=crop"
-          color="bg-[#D97743] text-white"
-          darkGradient
-        />
-        <CatalogCard
-          title="Signal"
-          year="2025"
-          description="An intelligent feedback loop—so your product, marketing, and customer success teams stay ahead of the curve."
-          actionText="Early access"
-          coverType="image"
-          coverUrl="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2629&auto=format&fit=crop"
-          color="bg-[#0055FF] text-white"
-        />
+        {catalogs.map((catalog: any) => {
+          const { title, year, description, link, badgeText, actionText, color, darkGradient, cover } = catalog;
+          
+          let coverUrl = '';
+          let coverType: 'image' | 'video' = 'image';
+          
+          if (cover) {
+            coverUrl = cover.url;
+            if (coverUrl && !coverUrl.startsWith('http')) {
+              coverUrl = `${process.env.STRAPI_URL || 'http://localhost:1337'}${coverUrl}`;
+            }
+            if (cover.mime?.startsWith('video')) {
+              coverType = 'video';
+            }
+          }
+
+          return (
+            <CatalogCard
+              key={catalog.documentId || catalog.id}
+              title={title}
+              year={year}
+              description={description}
+              link={link}
+              actionText={actionText}
+              badgeText={badgeText}
+              coverType={coverType}
+              coverUrl={coverUrl}
+              color={color}
+              darkGradient={darkGradient}
+            />
+          );
+        })}
+
         {/* Empty Placeholder Card */}
         <div className="bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col items-center justify-center min-h-[400px] h-full group hover:bg-white/10 transition-colors">
           <div className="flex gap-2 mb-4">
@@ -86,3 +90,4 @@ export default function Home() {
     </div>
   );
 }
+
