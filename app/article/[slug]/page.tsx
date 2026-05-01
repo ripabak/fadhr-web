@@ -139,7 +139,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
             {category?.name || category?.title || 'Uncategorized'}
           </span>
         </div>
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-balance">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
           {title}
         </h1>
 
