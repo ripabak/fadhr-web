@@ -19,10 +19,10 @@ export default async function Home() {
   const catalogs = await getCatalogs();
 
   return (
-    <div className="flex flex-col lg:flex-row w-full max-w-[1800px] mx-auto p-6 lg:p-8 gap-12 lg:gap-20">
+    <div className="flex flex-col lg:flex-row w-full mx-auto p-6 lg:p-8 gap-12 lg:gap-16">
       {/* Left Sidebar */}
       <aside className="w-full lg:w-[350px] xl:w-[450px] flex flex-col gap-10 lg:gap-16 shrink-0 lg:sticky lg:top-8 self-start">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-balance">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.1] tracking-tight text-balance">
           An independent design and research laboratory, and publisher.
         </h1>
 
@@ -43,13 +43,13 @@ export default async function Home() {
       </aside>
 
       {/* Right Content - Grid */}
-      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {catalogs.map((catalog: any) => {
           const { title, year, description, link, badgeText, actionText, color, darkGradient, cover } = catalog;
-          
+
           let coverUrl = '';
           let coverType: 'image' | 'video' = 'image';
-          
+
           if (cover) {
             coverUrl = cover.url;
             if (coverUrl && !coverUrl.startsWith('http')) {
