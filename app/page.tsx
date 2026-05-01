@@ -1,65 +1,88 @@
-import Image from "next/image";
+import CatalogCard from "@/components/CatalogCard";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="flex flex-col lg:flex-row w-full max-w-[1800px] mx-auto p-6 lg:p-8 gap-12 lg:gap-20">
+      {/* Left Sidebar */}
+      <aside className="w-full lg:w-[350px] xl:w-[450px] flex flex-col gap-10 lg:gap-16 shrink-0 lg:sticky lg:top-8 self-start">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-balance">
+          An independent design and research laboratory, and publisher.
+        </h1>
+
+        <nav className="flex flex-col gap-3 items-start">
+          <Link
+            href="/about"
+            className="px-6 py-3 rounded-full bg-neutral-800 text-white hover:bg-accent hover:text-black transition-all duration-300 text-sm font-bold uppercase tracking-widest border border-transparent hover:border-black/10 shadow-sm"
+          >
+            About
+          </Link>
+          <Link
+            href="/article"
+            className="px-6 py-3 rounded-full bg-neutral-800 text-white hover:bg-accent hover:text-black transition-all duration-300 text-sm font-bold uppercase tracking-widest border border-transparent hover:border-black/10 shadow-sm"
+          >
+            Article
+          </Link>
+        </nav>
+      </aside>
+
+      {/* Right Content - Grid */}
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+        <CatalogCard
+          title="Distill"
+          year="2025"
+          description="Great ideas start in quiet places, welcome to your private think space with your own team of agents."
+          actionText="Create yours today"
+          coverType="image"
+          coverUrl="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+          color="bg-sky-100 text-sky-900"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <CatalogCard
+          title="Research"
+          year="2024"
+          description="To ignite curiosity, inspire innovation, and expand horizons through understanding and deeper insights into research."
+          badgeText="Loved by researchers"
+          coverType="image"
+          coverUrl="https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=2670&auto=format&fit=crop"
+          color="bg-[#EBE5D9] text-[#4A4433]"
+        />
+        <CatalogCard
+          title="Pile"
+          year="2023"
+          description="Kindle self-discovery, nurture growth, and broaden understanding through reflection and insight into one's inner landscape."
+          actionText="100K+ Users"
+          coverType="image"
+          coverUrl="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2670&auto=format&fit=crop"
+          color="bg-blue-500 text-white"
+        />
+        <CatalogCard
+          title="Mudbook"
+          description="From your first wobbly cylinder to gallery-worthy pieces. Capture every step of your pottery process."
+          badgeText="Made for potters"
+          coverType="image"
+          coverUrl="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=2670&auto=format&fit=crop"
+          color="bg-[#D97743] text-white"
+          darkGradient
+        />
+        <CatalogCard
+          title="Signal"
+          year="2025"
+          description="An intelligent feedback loop—so your product, marketing, and customer success teams stay ahead of the curve."
+          actionText="Early access"
+          coverType="image"
+          coverUrl="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2629&auto=format&fit=crop"
+          color="bg-[#0055FF] text-white"
+        />
+        {/* Empty Placeholder Card */}
+        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col items-center justify-center min-h-[400px] h-full group hover:bg-white/10 transition-colors">
+          <div className="flex gap-2 mb-4">
+            <div className="w-2 h-2 rounded-full bg-neutral-600"></div>
+            <div className="w-2 h-2 rounded-full bg-accent"></div>
+            <div className="w-2 h-2 rounded-full bg-neutral-600"></div>
+          </div>
+          <span className="text-neutral-500 text-xs tracking-[0.2em] font-bold uppercase group-hover:text-neutral-300 transition-colors">In Production</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
