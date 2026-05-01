@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useBottomImageColor } from "@/hooks/useBottomColorImage";
 
 export default function CatalogCard({
+  logoUrl,
   title,
   year,
   description,
@@ -13,6 +14,7 @@ export default function CatalogCard({
   actionText,
   bgColorHex = "#fff"
 }: {
+  logoUrl?: string;
   title: string;
   year: number;
   description: string;
@@ -77,11 +79,15 @@ export default function CatalogCard({
             <div className="w-12 h-12 rounded-2xl 
               bg-white/10 backdrop-blur-sm
               flex items-center justify-center shrink-0
-              transition-colors group-hover:bg-white/20">
+              transition-colors group-hover:bg-white/20 overflow-hidden">
 
-              <div className="w-6 h-6 bg-current rounded-md opacity-80 flex items-center justify-center font-bold text-xs">
-                {title.charAt(0)}
-              </div>
+              {logoUrl ? (
+                <img src={logoUrl} alt={`${title} logo`} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-6 h-6 bg-current rounded-md opacity-80 flex items-center justify-center font-bold text-xs">
+                  {title.charAt(0)}
+                </div>
+              )}
             </div>
 
             <div>

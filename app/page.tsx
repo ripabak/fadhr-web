@@ -45,7 +45,7 @@ export default async function Home() {
       {/* Right Content - Grid */}
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {catalogs.map((catalog: any) => {
-          const { title, year, description, link, badgeText, actionText, bgColorHex, cover } = catalog;
+          const { logo, title, year, description, link, badgeText, actionText, bgColorHex, cover } = catalog;
 
           let coverUrl = '';
           let coverType: 'image' | 'video' = 'image';
@@ -60,9 +60,18 @@ export default async function Home() {
             }
           }
 
+          let logoUrl = '';
+          if (logo) {
+            logoUrl = logo.url;
+            if (logoUrl && !logoUrl.startsWith('http')) {
+              logoUrl = `${process.env.STRAPI_URL || 'http://localhost:1337'}${logoUrl}`;
+            }
+          }
+
           return (
             <CatalogCard
               key={catalog.documentId || catalog.id}
+              logoUrl={logoUrl}
               title={title}
               year={year}
               description={description}
