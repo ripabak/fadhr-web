@@ -19,7 +19,7 @@ async function getArticles(page: number, category?: string) {
     }
 
     const res = await fetchAPI('/articles', {
-      populate: ['category', 'author'],
+      populate: ['category', 'author', 'cover'],
       sort: ['publishedAt:desc', 'createdAt:desc'],
       filters,
       pagination: {
@@ -127,8 +127,21 @@ export default async function ArticleListPage({ searchParams }: { searchParams: 
                     <p className="text-lg opacity-80 leading-relaxed text-balance">
                       {description}
                     </p>
-                    <span className="text-sm font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity text-accent">
-                      Read Article ↗
+                    
+                    {article.author && (
+                      <div className="mt-4 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-accent text-black flex items-center justify-center text-sm font-bold shadow-md">
+                          {article.author.name?.[0] || 'A'}
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-bold text-neutral-200">{article.author.name}</span>
+                          {article.author.email && <span className="text-xs text-neutral-500">{article.author.email}</span>}
+                        </div>
+                      </div>
+                    )}
+
+                    <span className="text-sm font-bold uppercase tracking-widest mt-4 opacity-0 group-hover:opacity-100 transition-opacity text-accent flex items-center gap-2">
+                      Read Article <span className="text-xl leading-none">&rarr;</span>
                     </span>
                   </div>
                 </Link>

@@ -1,9 +1,11 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #111111;
   --foreground: #f4f4f5;
-  --accent: #ca8a04; /* kuning tua */
+  --accent: #ca8a04;
+  /* kuning tua */
   --card-bg: #1f1f1f;
   --border: #333333;
 }

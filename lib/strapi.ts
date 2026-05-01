@@ -20,7 +20,7 @@ export async function fetchAPI(path: string, urlParamsObject = {}, options = {})
     const response = await fetch(requestUrl, mergedOptions);
 
     const data = await response.json();
-    console.log(data);
+    // console.log(JSON.stringify(data, null, 2));
 
     // Handle response
     if (!response.ok) {
